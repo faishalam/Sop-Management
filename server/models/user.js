@@ -1,5 +1,7 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,67 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init(
-    {
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "username is requried",
-          },
-          notNull: {
-            msg: "username is required",
-          },
-        },
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "email is requried",
-          },
-          notNull: {
-            msg: "email is required",
-          },
-        },
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "email is requried",
-          },
-          notNull: {
-            msg: "email is required",
-          },
-        },
-      },
-      role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "user",
-        validate: {
-          notEmpty: {
-            msg: "role is requried",
-          },
-          notNull: {
-            msg: "role is required",
-          },
-        },
-      },
-    },
-    {
-      hooks: {
-        beforeCreate: (user) => {
-          user.password = require("bcrypt").hashSync(user.password, 10);
-        },
-      },
-      sequelize,
-      modelName: "User",
-    }
-  );
+  User.init({
+    username: DataTypes.STRING,
+    nrp: DataTypes.STRING,
+    password: DataTypes.STRING,
+    role: DataTypes.STRING,
+    email: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
   return User;
 };
