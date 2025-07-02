@@ -9,14 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      SopLibrary.hasMany(models.Document, {
+        foreignKey: "sopLibraryId",
+        onDelete: "CASCADE",
+      });
+      SopLibrary.hasMany(models.Revised, {
+        foreignKey: "sopLibraryId",
+        onDelete: "CASCADE",
+      });
       SopLibrary.belongsTo(models.User, { foreignKey: "userId" });
-      SopLibrary.belongsTo(models.Category, { foreignKey: "categoryId" });
+      SopLibrary.belongsTo(models.Category, {
+        foreignKey: "categoryId",
+        onDelete: "CASCADE",
+      });
     }
   }
   SopLibrary.init(
     {
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -28,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       categoryId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -39,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      business_process: {
+      businessProcess: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -63,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      effective_date: {
+      effectiveDate: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
@@ -72,18 +83,6 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "Effective Date is required",
-          },
-        },
-      },
-      document: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Document is required",
-          },
-          notEmpty: {
-            msg: "Document is required",
           },
         },
       },
@@ -137,6 +136,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       reasonRevise: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      revisionBy: {
         type: DataTypes.STRING,
         allowNull: true,
       },

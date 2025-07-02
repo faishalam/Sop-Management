@@ -20,6 +20,7 @@ async function authentication(req, res, next) {
       username: user.username,
       email: user.email,
       role: user.role,
+      nrp: user.nrp,
     };
 
     next();

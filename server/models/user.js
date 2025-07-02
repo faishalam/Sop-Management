@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { genSalt } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -81,6 +82,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      hooks: {
+        beforeCreate(instance, option) {
+          instance.password = genSalt(instance.password);
+        },
+        beforeUpdate(instance, option) {
+          if (instance.changed("password")) {
+            instance.password = genSalt(instance.password);
+          }
+        },
+      },
       sequelize,
       modelName: "User",
     }

@@ -15,17 +15,14 @@ module.exports = {
       categoryId: {
         type: Sequelize.STRING,
       },
-      business_process: {
+      businessProcess: {
         type: Sequelize.STRING,
       },
       title: {
         type: Sequelize.STRING,
       },
-      effective_date: {
+      effectiveDate: {
         type: Sequelize.DATE,
-      },
-      document: {
-        type: Sequelize.STRING,
       },
       superior_1: {
         type: Sequelize.STRING,

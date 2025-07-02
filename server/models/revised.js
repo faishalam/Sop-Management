@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class InternalMemo extends Model {
+  class revised extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,44 +9,52 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      InternalMemo.hasOne(models.DocumentInternalMemo, {
-        foreignKey: "internalMemoId",
-        onDelete: "CASCADE",
-      });
-      InternalMemo.belongsTo(models.User, { foreignKey: "userId" });
+      revised.belongsTo(models.SopLibrary, { foreignKey: "sopLibraryId" });
     }
   }
-  InternalMemo.init(
+  revised.init(
     {
-      userId: {
+      sopLibraryId: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "User ID is required",
+            msg: "SOP Library ID is required",
           },
-          notEmpty: {
-            msg: "User ID is required",
+          allowNull: {
+            msg: "SOP Library ID is required",
           },
         },
       },
-      title: {
+      revisedBy: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Title is required",
+            msg: "Revised By is required",
           },
           notEmpty: {
-            msg: "Title is required",
+            msg: "Revised By is required",
+          },
+        },
+      },
+      reasonRevise: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Reason Revise is required",
+          },
+          notEmpty: {
+            msg: "Reason Revise is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "InternalMemo",
+      modelName: "revised",
     }
   );
-  return InternalMemo;
+  return revised;
 };

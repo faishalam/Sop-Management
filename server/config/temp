@@ -2,3 +2,8 @@ npx sequelize-cli model:generate --name User --attributes username:string,nrp:st
 npx sequelize-cli model:generate --name Category --attributes name:string,userId:string && \
 npx sequelize-cli model:generate --name SopLibrary --attributes userId:string,categoryId:string,business_process:string,title:string,effective_date:date,document:string,superior_1:string,superior_2:string,md:string,status:string,reasonRevise:string && \
 npx sequelize-cli model:generate --name InternalMemo --attributes userId:string,title:string,document:string
+npx sequelize-cli model:generate --name revised --attributes sopLibraryId:string,reasonRevise:string
+
+npx sequelize-cli model:generate --name internalMemo --attributes userId:string,title:string
+npx sequelize-cli model:generate --name documentInternalMemo --attributes internalMemoId:string,name:string,url:string,cloudinaryId:string
+
