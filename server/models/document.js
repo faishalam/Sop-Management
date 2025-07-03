@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       cloudinaryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {

@@ -9,8 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsTo(models.User, { foreignKey: "userId" });
       Category.hasMany(models.SopLibrary, { foreignKey: "categoryId" });
+      Category.belongsTo(models.User, { foreignKey: "userId" });
+      Category.belongsTo(models.BusinessProcess, { foreignKey: "businessProcessId" });
     }
   }
   Category.init(
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -36,6 +37,18 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "User ID is required",
+          },
+        },
+      },
+      businessProcessId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Business Process ID is required",
+          },
+          notEmpty: {
+            msg: "Business Process ID is required",
           },
         },
       },

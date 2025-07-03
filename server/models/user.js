@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       nrp: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
         validate: {

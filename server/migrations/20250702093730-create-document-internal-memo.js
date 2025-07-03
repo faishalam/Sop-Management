@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('documentInternalMemos', {
+    await queryInterface.createTable('DocumentInternalMemos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,7 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       internalMemoId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: "InternalMemos",
+          key: "id"
+        }
       },
       name: {
         type: Sequelize.STRING
@@ -32,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('documentInternalMemos');
+    await queryInterface.dropTable('DocumentInternalMemos');
   }
 };

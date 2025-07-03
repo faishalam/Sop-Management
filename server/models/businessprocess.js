@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Revised extends Model {
+  class BusinessProcess extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,52 +9,46 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Revised.belongsTo(models.SopLibrary, { foreignKey: "sopLibraryId" });
+      BusinessProcess.belongsTo(models.User, { foreignKey: "userId" });
+      BusinessProcess.hasMany(models.SopLibrary, {
+        foreignKey: "businessProcessId",
+      });
+      BusinessProcess.hasMany(models.Category, {
+        foreignKey: "businessProcessId",
+      });
     }
   }
-  Revised.init(
+  BusinessProcess.init(
     {
-      sopLibraryId: {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Name is required",
+          },
+          notEmpty: {
+            msg: "Name is required",
+          },
+        },
+      },
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "SOP Library ID is required",
-          },
-          allowNull: {
-            msg: "SOP Library ID is required",
-          },
-        },
-      },
-      revisedBy: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Revised By is required",
+            msg: "User ID is required",
           },
           notEmpty: {
-            msg: "Revised By is required",
-          },
-        },
-      },
-      reasonRevise: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Reason Revise is required",
-          },
-          notEmpty: {
-            msg: "Reason Revise is required",
+            msg: "User ID is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Revised",
+      modelName: "BusinessProcess",
     }
   );
-  return Revised;
+  return BusinessProcess;
 };

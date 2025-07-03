@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class documentInternalMemo extends Model {
+  class DocumentInternalMemo extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      documentInternalMemo.belongsTo(models.InternalMemo, { foreignKey: "internalMemoId" });
+      DocumentInternalMemo.belongsTo(models.InternalMemo, { foreignKey: "internalMemoId" });
     }
   }
-  documentInternalMemo.init({
+  DocumentInternalMemo.init({
     internalMemoId: {
       type : DataTypes.INTEGER,
       allowNull: false,
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     cloudinaryId: {
-      type : DataTypes.INTEGER,
+      type : DataTypes.STRING,
       allowNull: false,
       validate : {
         notNull: {
@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'documentInternalMemo',
+    modelName: 'DocumentInternalMemo',
   });
-  return documentInternalMemo;
+  return DocumentInternalMemo;
 };

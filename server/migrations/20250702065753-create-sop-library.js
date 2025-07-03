@@ -10,13 +10,25 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       userId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        }
       },
       categoryId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Categories",
+          key: "id",
+        }
       },
-      businessProcess: {
-        type: Sequelize.STRING,
+      businessProcessId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "BusinessProcesses",
+          key: "id",
+        }
       },
       title: {
         type: Sequelize.STRING,

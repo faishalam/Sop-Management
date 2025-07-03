@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "categoryId",
         onDelete: "CASCADE",
       });
+      SopLibrary.belongsTo(models.BusinessProcess, {
+        foreignKey: "businessProcessId",
+        onDelete: "CASCADE",
+      });
     }
   }
   SopLibrary.init(
@@ -50,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      businessProcess: {
-        type: DataTypes.STRING,
+      businessProcessId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {

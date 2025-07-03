@@ -7,3 +7,5 @@ npx sequelize-cli model:generate --name revised --attributes sopLibraryId:string
 npx sequelize-cli model:generate --name internalMemo --attributes userId:string,title:string
 npx sequelize-cli model:generate --name documentInternalMemo --attributes internalMemoId:string,name:string,url:string,cloudinaryId:string
 
+npx sequelize-cli model:generate --name businessProcess --attributes name:string,userId:integer
+

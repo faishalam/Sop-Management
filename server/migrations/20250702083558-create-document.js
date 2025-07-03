@@ -11,6 +11,10 @@ module.exports = {
       },
       sopLibraryId: {
         type: Sequelize.INTEGER,
+        references : {
+          model : "SopLibraries",
+          key : "id"
+        }
       },
       name: {
         type: Sequelize.STRING,

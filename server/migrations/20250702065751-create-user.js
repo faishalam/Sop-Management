@@ -2,25 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Reviseds", {
+    await queryInterface.createTable("Users", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      sopLibraryId: {
+      username: {
+        type: Sequelize.STRING,
+      },
+      nrp: {
         type: Sequelize.INTEGER,
-        references : {
-          model : "SopLibraries",
-          key : "id"
-        }
+        unique: true,
       },
-      reasonRevise: {
+      password: {
         type: Sequelize.STRING,
       },
-      revisedBy: {
+      role: {
         type: Sequelize.STRING,
+        defaultValue: "user",
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Reviseds");
+    await queryInterface.dropTable("Users");
   },
 };
