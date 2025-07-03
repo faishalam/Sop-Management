@@ -2,6 +2,7 @@ const express = require("express");
 const SopLibraryControllers = require("../controllers/sopLibraryControllers");
 const authentication = require("../middlewares/authentication");
 const sopLibraryRouter = express.Router();
+const upload = require("../middlewares/upload");
 
 sopLibraryRouter.post(
   "/soplibrary",

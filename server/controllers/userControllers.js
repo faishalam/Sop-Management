@@ -57,6 +57,15 @@ class UserController {
     }
   }
 
+  static async getAllUser(req, res) {
+    try {
+      const findAll = await User.findAll();
+      res.status(200).json(findAll);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
   static async login(req, res) {
     try {
       const { nrp, password } = req.body;

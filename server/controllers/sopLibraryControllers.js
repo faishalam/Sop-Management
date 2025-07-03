@@ -1,6 +1,12 @@
 const { SopLibrary, Category, User, Document, Revised } = require("../models");
 const { Op } = require("sequelize");
-const cloudinary = require("../config/cloudinary");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 class SopLibraryController {
   static async createSopLibrary(req, res) {
