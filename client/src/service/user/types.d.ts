@@ -1,6 +1,6 @@
 export type TInputLogin = {
   password: string;
-  email: string;
+  nrp: string;
 };
 
 export type TLoginResponse = {
@@ -10,7 +10,7 @@ export type TLoginResponse = {
 
 export type TInputRegister = {
   username: string;
-  email: string;
+  nrp: string;
   password: string;
 };
 
@@ -22,7 +22,7 @@ export type TRegisterResponse = {
 };
 
 export type TUserLoggedInResponse = {
-  email: string;
+  nrp: string;
   username: string;
   role: string;
 };

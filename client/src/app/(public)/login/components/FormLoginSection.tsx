@@ -17,21 +17,18 @@ export default function FormLoginSection() {
         className="mx-auto mb-0 mt-4 max-w-full md:max-w-md w-full space-y-3 px-10 lg:px-0"
       >
         <Controller
-          name="email"
+          name="nrp"
           control={control}
           rules={{
-            required: "Email wajib diisi",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
-            },
+            required: "NRP wajib diisi",
+            
           }}
           render={({ field }) => (
             <CInput
-              id="email"
-              label="Email*"
-              placeholder="Enter email"
-              errors={errors.email?.message}
+              id="nrp"
+              label="NRP*"
+              placeholder="Enter nrp"
+              errors={errors.nrp?.message}
               {...field}
               required
               autoComplete="off"
@@ -82,17 +79,16 @@ export default function FormLoginSection() {
           </div>
         </div>
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col mt-8">
           <ButtonSubmit
             type={"submit"}
             classname={
-              "w-fulll max-w-full rounded-lg bg-[#164427] text-white hover:bg-green-700 p-2"
+              "w-fulll max-w-full rounded-lg bg-[#2F5249] hover:bg-[#164427] text-white p-2 cursor-pointer"
             }
             btnText="Login"
             btnLoading={isLoadingLogin}
           />
         </div>
-        <ContinueWithSection />
       </form>
     </>
   );

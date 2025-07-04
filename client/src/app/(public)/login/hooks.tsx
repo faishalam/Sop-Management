@@ -16,7 +16,7 @@ const useUserLoginHooks = () => {
     resetField,
   } = useForm<TInputLogin>({
     defaultValues: {
-      email: "",
+      nrp: "",
       password: "",
     },
   });
