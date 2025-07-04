@@ -1,28 +1,13 @@
 "use client";
 
 import useUserLogged from "@/service/user/userLoggedIn";
-import { usePathname } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const useAuthHooks = () => {
-  const [enabled, setEnabled] = useState<boolean>(false);
-  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
-  const { data: dataUser, isLoadingGetUserLoggedIn } = useUserLogged({
-    enabled: enabled,
-  });
-
-  useEffect(() => {
-    const token = localStorage.getItem("Authorization");
-    if (pathname === "/login" && token) {
-      setEnabled(true);
-    } else if (pathname !== "/login" && token) {
-      setEnabled(true);
-    } else {
-      setEnabled(false);
-    }
-  }, [pathname]);
+  const { data: dataUser, isLoading: isLoadingGetUserLoggedIn } =
+    useUserLogged();
 
   return {
     dataUser,

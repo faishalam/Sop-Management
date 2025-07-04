@@ -3,41 +3,27 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { HeroServices } from "../HeroService";
-import { TResponseType } from "@/utils/response-type";
-import { TUserLoggedInResponse } from "./types";
+import { AxiosError } from "axios";
+import { NetworkAPIError } from "@/utils/response-type";
 
-type TParams = {
-  enabled: boolean;
-};
-
-const useUserLogged = (props: TParams) => {
-  const [isLoadingGetUserLoggedIn, setIsLoading] = useState<boolean>(false);
+const useUserLogged = () => {
   const useUserLoggedFn = async () => {
     try {
-      setIsLoading(true);
-      const response = await HeroServices.get<
-        TResponseType<TUserLoggedInResponse>
-      >("/getLoggedInUser");
-
+      const response = await HeroServices.get("/getLoggedInUser");
       if (response.status !== 200) return;
-
       return response.data;
     } catch (error) {
-      setIsLoading(false);
-      throw error;
-    } finally {
-      setIsLoading(false);
+      const err = error as AxiosError<NetworkAPIError>;
+      throw err || "Unknown error";
     }
   };
 
   const query = useQuery({
     queryKey: ["useUserLogged"],
     queryFn: useUserLoggedFn,
-    staleTime: Infinity,
-    enabled: !!props.enabled,
   });
 
-  return { ...query, isLoadingGetUserLoggedIn };
+  return { ...query };
 };
 
 export default useUserLogged;

@@ -24,12 +24,12 @@ const useUserLoginHooks = () => {
   const {
     mutate: mutateLogin,
     data: dataLogin,
-    isLoadingLogin,
+    isPending: isLoadingLogin,
   } = useLogin({
     onSuccess: (data: TLoginResponse) => {
       if (!data) return;
       localStorage.setItem("Authorization", data.access_token);
-      router.push("/");
+      router.push("/dashboard");
     },
     onError: (error: unknown) => {
       toast.error(error as string);
