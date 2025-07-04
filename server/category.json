@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Strategic Plan Formulation",
+        "userId": 1,
+        "businessProcessId" : 1
+    },
+    {
+        "name": "Strategy Deployment",
+        "userId": 1,
+        "businessProcessId" : 1
+    },
+    {
+        "name": "Support Process",
+        "userId": 1,
+        "businessProcessId" : 1
+    },
+
+    {
+        "name": "Strategic Plan",
+        "userId": 1,
+        "businessProcessId" : 2
+    },
+    {
+        "name": "Strategy",
+        "userId": 1,
+        "businessProcessId" : 2
+    },
+    {
+        "name": "Support",
+        "userId": 1,
+        "businessProcessId" : 3
+    }
+]

@@ -9,22 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      SopLibrary.hasMany(models.Document, {
+      SopLibrary.belongsTo(models.User, {
+        foreignKey: "superior_1",
+        as: "Superior1",
+      });
+      SopLibrary.belongsTo(models.User, {
+        foreignKey: "superior_2",
+        as: "Superior2",
+      });
+      SopLibrary.belongsTo(models.User, {
+        foreignKey: "md",
+        as: "MdApprover",
+      });
+      SopLibrary.hasMany(models.SopDocument, {
         foreignKey: "sopLibraryId",
-        onDelete: "CASCADE",
       });
-      SopLibrary.hasMany(models.Revised, {
+      SopLibrary.hasMany(models.Revision, {
         foreignKey: "sopLibraryId",
-        onDelete: "CASCADE",
-      });
-      SopLibrary.belongsTo(models.User, { foreignKey: "userId" });
-      SopLibrary.belongsTo(models.Category, {
-        foreignKey: "categoryId",
-        onDelete: "CASCADE",
-      });
-      SopLibrary.belongsTo(models.BusinessProcess, {
-        foreignKey: "businessProcessId",
-        onDelete: "CASCADE",
       });
     }
   }
@@ -42,27 +43,15 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      categoryId: {
+      subCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Category ID is required",
+            msg: "Sub Category ID is required",
           },
           notEmpty: {
-            msg: "Category ID is required",
-          },
-        },
-      },
-      businessProcessId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Business process is required",
-          },
-          notEmpty: {
-            msg: "Business process is required",
+            msg: "Sub Category ID is required",
           },
         },
       },
@@ -78,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      effectiveDate: {
+      effective_date: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
@@ -91,7 +80,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       superior_1: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -103,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       superior_2: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -115,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       md: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -127,9 +116,15 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+          "submitted",
+          "Approved by Superior 1",
+          "Approved by MR Mutu",
+          "Approved by MR K3KOLH",
+          "Approved by Superior 2",
+          "Revised"
+        ),
         allowNull: false,
-        defaultValue: "submitted",
         validate: {
           notNull: {
             msg: "Status is required",
@@ -138,14 +133,6 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Status is required",
           },
         },
-      },
-      reasonRevise: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      revisionBy: {
-        type: DataTypes.STRING,
-        allowNull: true,
       },
     },
     {

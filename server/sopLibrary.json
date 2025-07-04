@@ -1,0 +1,12 @@
+[
+    {
+        "userId" : 1,
+        "subCategoryId" : 1,
+        "title" : "SOP 1",
+        "effective_date" : "2023-01-01",
+        "superior_1" : "superior 1",
+        "superior_2" : "superior 2",
+        "md" : "md",
+        "status" : "Approved by Superior 2"
+    }
+]

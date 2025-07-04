@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      BusinessProcess.belongsTo(models.User, { foreignKey: "userId" });
-      BusinessProcess.hasMany(models.SopLibrary, {
-        foreignKey: "businessProcessId",
+      BusinessProcess.belongsTo(models.User, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
       });
       BusinessProcess.hasMany(models.Category, {
         foreignKey: "businessProcessId",
@@ -20,18 +20,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   BusinessProcess.init(
     {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Name is required",
-          },
-          notEmpty: {
-            msg: "Name is required",
-          },
-        },
-      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -41,6 +29,18 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "User ID is required",
+          },
+        },
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Name is required",
+          },
+          notEmpty: {
+            msg: "Name is required",
           },
         },
       },

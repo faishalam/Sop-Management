@@ -1,11 +1,17 @@
-npx sequelize-cli model:generate --name User --attributes username:string,nrp:string,password:string,role:string,email:string && \
-npx sequelize-cli model:generate --name Category --attributes name:string,userId:string && \
-npx sequelize-cli model:generate --name SopLibrary --attributes userId:string,categoryId:string,business_process:string,title:string,effective_date:date,document:string,superior_1:string,superior_2:string,md:string,status:string,reasonRevise:string && \
-npx sequelize-cli model:generate --name InternalMemo --attributes userId:string,title:string,document:string
-npx sequelize-cli model:generate --name revised --attributes sopLibraryId:string,reasonRevise:string
+npx sequelize-cli model:generate --name User --attributes username:string,nrp:string,password:string,role:string,email:string
 
-npx sequelize-cli model:generate --name internalMemo --attributes userId:string,title:string
-npx sequelize-cli model:generate --name documentInternalMemo --attributes internalMemoId:string,name:string,url:string,cloudinaryId:string
+npx sequelize-cli model:generate --name BusinessProcess --attributes userId:integer,name:string
 
-npx sequelize-cli model:generate --name businessProcess --attributes name:string,userId:integer
+npx sequelize-cli model:generate --name Category --attributes userId:string,name:string,businessProcessId:integer
 
+npx sequelize-cli model:generate --name SubCategory --attributes name:string,categoryId:integer
+
+npx sequelize-cli model:generate --name InternalMemo --attributes userId:integer,title:string
+
+npx sequelize-cli model:generate --name InternalMemoDocument --attributes internalMemoId:integer,name:string,url:string,cloudinaryId:string
+
+npx sequelize-cli model:generate --name SopLibrary --attributes userId:integer,subCategoryId:integer,title:string,effective_date:date,superior_1:integer,superior_2:integer,md:integer,status:string
+
+npx sequelize-cli model:generate --name SopDocument --attributes sopLibraryId:integer,name:string,url:string,cloudinaryId:string
+
+npx sequelize-cli model:generate --name Revision --attributes sopLibraryId:integer,revisedBy:integer,reasonRevise:text

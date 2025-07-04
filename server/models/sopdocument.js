@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class SopDocument extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,30 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsTo(models.User, {
-        foreignKey: "userId",
+      SopDocument.belongsTo(models.SopLibrary, {
+        foreignKey: "sopLibraryId",
         onDelete: "CASCADE",
-      });
-      Category.belongsTo(models.BusinessProcess, {
-        foreignKey: "businessProcessId",
-        onDelete: "CASCADE",
-      });
-      Category.hasMany(models.SubCategory, {
-        foreignKey: "categoryId",
       });
     }
   }
-  Category.init(
+  SopDocument.init(
     {
-      userId: {
+      sopLibraryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "User ID is required",
+            msg: "SOP Library ID is required",
           },
           notEmpty: {
-            msg: "User ID is required",
+            msg: "SOP Library ID is required",
           },
         },
       },
@@ -48,23 +41,35 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      businessProcessId: {
-        type: DataTypes.INTEGER,
+      url: {
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Business Process ID is required",
+            msg: "Url is required",
           },
           notEmpty: {
-            msg: "Business Process ID is required",
+            msg: "Url is required",
+          },
+        },
+      },
+      cloudinaryId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Cloudinary ID is required",
+          },
+          notEmpty: {
+            msg: "Cloudinary ID is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Category",
+      modelName: "SopDocument",
     }
   );
-  return Category;
+  return SopDocument;
 };

@@ -1,28 +1,31 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Document extends Model {
+  class InternalMemoDocument extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Document.belongsTo(models.SopLibrary, { foreignKey: "sopLibraryId" });
+      // define association here\
+      InternalMemoDocument.belongsTo(models.InternalMemo, {
+        foreignKey: "internalMemoId",
+        onDelete: "CASCADE",
+      });
     }
   }
-  Document.init(
+  InternalMemoDocument.init(
     {
-      sopLibraryId: {
+      internalMemoId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "SOP Library ID is required",
+            msg: "Internal Memo ID is required",
           },
           notEmpty: {
-            msg: "SOP Library ID is required",
+            msg: "Internal Memo ID is required",
           },
         },
       },
@@ -43,10 +46,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "URL is required",
+            msg: "Url is required",
           },
           notEmpty: {
-            msg: "URL is required",
+            msg: "Url is required",
           },
         },
       },
@@ -55,18 +58,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Cloudinary IDis required",
+            msg: "Cloudinary ID is required",
           },
           notEmpty: {
-            msg: "Cloudinary IDis required",
+            msg: "Cloudinary ID is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Document",
+      modelName: "InternalMemoDocument",
     }
   );
-  return Document;
+  return InternalMemoDocument;
 };

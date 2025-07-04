@@ -11,47 +11,47 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "Users",
           key: "id",
-        }
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
-      categoryId: {
+      subCategoryId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
-          model: "Categories",
+          model: "SubCategories",
           key: "id",
-        }
-      },
-      businessProcessId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "BusinessProcesses",
-          key: "id",
-        }
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      effectiveDate: {
+      effective_date: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       superior_1: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       superior_2: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       md: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       status: {
         type: Sequelize.STRING,
-        defaultValue: "submitted",
-      },
-      reasonRevise: {
-        type: Sequelize.STRING,
-        defaultValue: null,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Revised extends Model {
+  class Revision extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,10 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Revised.belongsTo(models.SopLibrary, { foreignKey: "sopLibraryId" });
+      Revision.belongsTo(models.SopLibrary, {
+        foreignKey: "sopLibraryId",
+        onDelete: "CASCADE",
+      });
+      Revision.belongsTo(models.User, {
+        foreignKey: "revisedBy",
+      });
     }
   }
-  Revised.init(
+  Revision.init(
     {
       sopLibraryId: {
         type: DataTypes.INTEGER,
@@ -21,13 +27,13 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "SOP Library ID is required",
           },
-          allowNull: {
+          notEmpty: {
             msg: "SOP Library ID is required",
           },
         },
       },
       revisedBy: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -43,18 +49,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Reason Revise is required",
+            msg: "Reason Revised is required",
           },
           notEmpty: {
-            msg: "Reason Revise is required",
+            msg: "Reason Revised is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Revised",
+      modelName: "Revision",
     }
   );
-  return Revised;
+  return Revision;
 };

@@ -11,7 +11,7 @@ sopLibraryRouter.post(
   SopLibraryControllers.createSopLibrary
 );
 sopLibraryRouter.get(
-  "/soplibrary",
+  "/soplibrary/:businessProcessId",
   authentication,
   SopLibraryControllers.getCategoriesWithSop
 );
@@ -46,10 +46,10 @@ sopLibraryRouter.delete(
   authentication,
   SopLibraryControllers.deleteCategory
 );
-sopLibraryRouter.delete(
-  "/sopLibrary/category/:id",
+sopLibraryRouter.get(
+  "/sopLibrary/category/:businessProcessId",
   authentication,
-  SopLibraryControllers.getAllCategory
+  SopLibraryControllers.getAllCategoryByBusinessProcess
 );
 
 module.exports = sopLibraryRouter;

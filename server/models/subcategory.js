@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class SubCategory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,33 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsTo(models.User, {
-        foreignKey: "userId",
-        onDelete: "CASCADE",
-      });
-      Category.belongsTo(models.BusinessProcess, {
-        foreignKey: "businessProcessId",
-        onDelete: "CASCADE",
-      });
-      Category.hasMany(models.SubCategory, {
+      SubCategory.belongsTo(models.Category, {
         foreignKey: "categoryId",
+        onDelete: "CASCADE",
+      });
+      SubCategory.hasMany(models.SopLibrary, {
+        foreignKey: "subCategoryId",
       });
     }
   }
-  Category.init(
+  SubCategory.init(
     {
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "User ID is required",
-          },
-          notEmpty: {
-            msg: "User ID is required",
-          },
-        },
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -48,23 +32,23 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      businessProcessId: {
+      categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Business Process ID is required",
+            msg: "Category ID is required",
           },
           notEmpty: {
-            msg: "Business Process ID is required",
+            msg: "Category ID is required",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Category",
+      modelName: "SubCategory",
     }
   );
-  return Category;
+  return SubCategory;
 };

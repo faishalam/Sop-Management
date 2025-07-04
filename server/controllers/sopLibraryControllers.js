@@ -96,9 +96,14 @@ class SopLibraryController {
     }
   }
 
-  static async getAllCategory(req, res) {
+  static async getAllCategoryByBusinessProcess(req, res) {
     try {
-      const findAll = await Category.findAll();
+      const { businessProcessId } = req.params;
+      const findAll = await Category.findAll({
+        where: {
+          businessProcessId: businessProcessId,
+        },
+      });
       res.status(200).json(findAll);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
@@ -107,16 +112,15 @@ class SopLibraryController {
 
   static async getCategoriesWithSop(req, res) {
     try {
+      const { businessProcessId } = req.params;
       const categories = await Category.findAll({
+        where: {
+          businessProcessId: businessProcessId,
+        },
         include: [
           {
             model: SopLibrary,
-            where: {
-              businessProcess: {
-                [Op.ne]: null,
-              },
-            },
-            required: true,
+            where: { status: "approved by superior 2" },
             include: [
               {
                 model: User,

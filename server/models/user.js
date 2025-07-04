@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const { genSalt } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.InternalMemo, { foreignKey: "userId" });
+      User.hasMany(models.BusinessProcess, { foreignKey: "userId" });
       User.hasMany(models.Category, { foreignKey: "userId" });
       User.hasMany(models.SopLibrary, { foreignKey: "userId" });
-      User.hasMany(models.InternalMemo, { foreignKey: "userId" });
+      User.hasMany(models.Revision, { foreignKey: "revisedBy" });
     }
   }
   User.init(
@@ -20,17 +21,18 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           notNull: {
-            msg: "Username is required",
+            msg: "User Name is required",
           },
           notEmpty: {
-            msg: "Username is required",
+            msg: "User Name is required",
           },
         },
       },
       nrp: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
@@ -55,9 +57,15 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       role: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+          "admin",
+          "superior_1",
+          "superior_2",
+          "MR Mutu",
+          "MR K3KOLH",
+          "user"
+        ),
         allowNull: false,
-        defaultValue: "user",
         validate: {
           notNull: {
             msg: "Role is required",
@@ -78,20 +86,11 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Email is required",
           },
+          isEmail: { msg: "Email format is invalid" },
         },
       },
     },
     {
-      hooks: {
-        beforeCreate(instance, option) {
-          instance.password = genSalt(instance.password);
-        },
-        beforeUpdate(instance, option) {
-          if (instance.changed("password")) {
-            instance.password = genSalt(instance.password);
-          }
-        },
-      },
       sequelize,
       modelName: "User",
     }

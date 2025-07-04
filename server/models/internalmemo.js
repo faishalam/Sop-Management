@@ -9,17 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      InternalMemo.hasOne(models.DocumentInternalMemo, {
-        foreignKey: "internalMemoId",
-        onDelete: "CASCADE",
+      InternalMemo.belongsTo(models.User, {
+        foreignKey: "userId",
       });
-      InternalMemo.belongsTo(models.User, { foreignKey: "userId" });
+      InternalMemo.hasMany(models.InternalMemoDocument, {
+        foreignKey: "internalMemoId",
+      });
     }
   }
   InternalMemo.init(
     {
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {

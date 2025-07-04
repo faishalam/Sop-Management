@@ -2,24 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Reviseds", {
+    await queryInterface.createTable("BusinessProcesses", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      sopLibraryId: {
+      userId: {
         type: Sequelize.INTEGER,
-        references : {
-          model : "SopLibraries",
-          key : "id"
-        }
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
-      reasonRevise: {
-        type: Sequelize.STRING,
-      },
-      revisedBy: {
+      name: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Reviseds");
+    await queryInterface.dropTable("BusinessProcesses");
   },
 };

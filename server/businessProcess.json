@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Management Process",
+        "userId": 1
+    },
+    {
+        "name": "Core Process",
+        "userId": 1
+    },
+    {
+        "name": "Support Process",
+        "userId": 1
+    }
+]
